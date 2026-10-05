@@ -1,0 +1,88 @@
+<FILENAME>README.md</FILENAME>
+<CODE>
+# Báo cáo Thực hành Bài 2: Tái cấu trúc lịch sử commit bằng Interactive Rebase
+
+**Họ và tên:** [Họ và tên Học viên]  
+**Đường dẫn bài nộp:** `homework/session_05/ex2/`
+
+---
+
+## 1. Chuẩn bị các commit ban đầu
+
+Thực hiện tạo 4 commit theo kịch bản mẫu:
+
+```bash
+# Commit 1: Tạo file auth.js
+touch auth.js
+git add auth.js
+git commit -m "feat: khoi tao module auth"
+
+# Commit 2: Chỉnh sửa auth.js
+echo "// fix typo" >> auth.js
+git add auth.js
+git commit -m "fix typo"
+
+# Commit 3: Chỉnh sửa auth.js
+echo "// add utility functions" >> auth.js
+git add auth.js
+git commit -m "adds utility functions"
+
+# Commit 4: Tạo file temp.txt
+touch temp.txt
+git add temp.txt
+git commit -m "add temp file for debug"
+```
+
+---
+
+## 2. Thực hiện Interactive Rebase
+
+Chạy lệnh rebase tương tác cho 4 commit gần nhất:
+
+```bash
+git rebase -i HEAD~4
+```
+
+Giao diện trình soạn thảo cấu hình Interactive Rebase:
+
+```text
+pick 1a2b3c4 feat: khoi tao module auth
+squash 5d6e7f8 fix typo
+squash 9g0h1i2 adds utility functions
+drop 3j4k5l6 add temp file for debug
+
+# Rebase 0a1b2c3..3j4k5l6 onto 0a1b2c3 (4 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup <commit> = like "squash", but discard this commit's log message
+# d, drop <commit> = remove commit
+```
+
+---
+
+## 3. Cập nhật thông điệp commit sau khi gộp (Squash)
+
+Sau khi lưu cấu hình trên, Git mở trình soạn thảo để điều chỉnh commit message gộp. Cấu hình lại thông điệp commit mới như sau:
+
+```text
+feat: hoan thien module authentication
+```
+
+---
+
+## 4. Kiểm tra lại lịch sử commit
+
+Chạy lệnh kiểm tra lịch sử commit:
+
+```bash
+git log --oneline
+```
+
+**Kết quả thu được:**
+
+```text
+a1b2c3d (HEAD -> feature/auth
